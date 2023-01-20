@@ -7,7 +7,7 @@ import pandas as pd
 
 class AdulterantDataset(Dataset):
 
-    def __init__(self, dataset_path, tarnsform=None):
+    def __init__(self, dataset_path, transform=None):
         self.root_dir = dataset_path
 
         csv_file_path = os.path.join(self.root_dir, "concentration_data.csv")
@@ -15,7 +15,7 @@ class AdulterantDataset(Dataset):
             raise ValueError("CSV file not found")
         self.concentrations = pd.read_csv(csv_file_path)
 
-        self.transform = tarnsform
+        self.transform = transform
 
     def __len__(self):
         return len(self.concentrations)
