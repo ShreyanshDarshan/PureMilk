@@ -1,6 +1,7 @@
 from PureMilk.model import AdulterantDetector
 from PureMilk.dataset import AdulterantDataset
 import os
+import sys
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -14,8 +15,9 @@ learning_rate = 0.001
 batch_size = 32
 num_epochs = 10
 
-parent_dir = os.path.dirname(os.path.abspath(''))
-dataset_path = os.path.join(parent_dir, 'drive', 'My Drive', 'data', 'NaOH')
+dataset_path = sys.argv[1]
+if not os.path.exists(dataset_path):
+    raise ValueError("Dataset path not found")
 train_dataset = AdulterantDataset(dataset_path)
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
