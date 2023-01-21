@@ -12,7 +12,7 @@ device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # params
 learning_rate = 0.001
-batch_size = 32
+batch_size = 4
 num_epochs = 10
 
 dataset_path = sys.argv[1]
@@ -21,7 +21,7 @@ if not os.path.exists(dataset_path):
 train_dataset = AdulterantDataset(dataset_path)
 train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
-model = AdulterantDetector([100, 100, 1]).to(device)
+model = AdulterantDetector([256*3, 128, 128, 1]).to(device)
 
 criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)

@@ -18,4 +18,4 @@ class AdulterantDetector(nn.Module):
 
     def forward(self, x):
         out = self.sequential(x)
-        return
+        return out
