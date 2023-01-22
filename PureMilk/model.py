@@ -18,6 +18,7 @@ class AdulterantDetector(nn.Module):
             self.layers.append(nn.Linear(fc_layers[i], fc_layers[i + 1]))
             self.layers.append(nn.ReLU())
         self.layers.append(nn.Linear(fc_layers[-2], fc_layers[-1]))
+
         self.sequential = nn.Sequential(*self.layers)
 
     def forward(self, x):
