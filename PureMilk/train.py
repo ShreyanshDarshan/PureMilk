@@ -10,7 +10,10 @@ from tqdm import tqdm
 from torch.utils.data import DataLoader
 
 
-def train_model(loader: DataLoader, model: nn.Module):
+def train_model(loader: DataLoader, model: nn.Module, learning_rate: float=0.001, num_epochs: int=100):
+    device = torch.device(
+        'cuda' if next(model.parameters()).is_cuda else 'cpu')
+
     criterion = nn.MSELoss()
     optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
@@ -31,22 +34,3 @@ def train_model(loader: DataLoader, model: nn.Module):
             loss.backward()
 
             optimizer.step()
-
-if __name__ == '__main__':
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-
-    # params
-    learning_rate = 0.001
-    batch_size = 4
-    num_epochs = 100
-
-    dataset_path = sys.argv[1]
-    if not os.path.exists(dataset_path):
-        raise ValueError("Dataset path not found")
-    train_dataset = AdulterantDataset(dataset_path)
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-
-    model = AdulterantDetector([3, 6, 12], [12*8*8, 128, 128, 1]).to(device)
-    train_model(train_loader, model)
-
-    check_accuracy(train_loader, model)
