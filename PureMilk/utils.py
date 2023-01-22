@@ -13,7 +13,8 @@ def check_accuracy(loader: DataLoader, model: torch.nn.Module):
             data = data.to(device)
             target = target.to(device)
 
-            data = torch.reshape(data, (data.shape[0], -1))
+            data = torch.reshape(data, (data.shape[0], 3, 32, 32))
+            # data = torch.reshape(data, (data.shape[0], -1))
             target = torch.reshape(target, (target.shape[0], 1))
 
             preds = model(data)

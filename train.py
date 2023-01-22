@@ -20,7 +20,7 @@ def train_model(loader: DataLoader, model: nn.Module):
             data = data.to(device)
             target = target.to(device)
 
-            data = torch.reshape(data, (data.shape[0], -1))
+            data = torch.reshape(data, (data.shape[0], 3, 32, 32))
             target = torch.reshape(target, (target.shape[0], 1))
 
             preds = model(data)
@@ -46,7 +46,7 @@ if __name__ == '__main__':
     train_dataset = AdulterantDataset(dataset_path)
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 
-    model = AdulterantDetector([256*3, 128, 128, 1]).to(device)
+    model = AdulterantDetector([3, 6, 12], [12*8*8, 128, 128, 1]).to(device)
     train_model(train_loader, model)
 
     check_accuracy(train_loader, model)

@@ -23,7 +23,7 @@ class AdulterantDataset(Dataset):
     def __getitem__(self, index):
         img_path = os.path.join(self.root_dir, self.annotations.iloc[index, 0])
         image = io.imread(img_path)[:,:,:3]
-        image = resize(image, (16, 16))
+        image = resize(image, (32, 32))
         image = torch.tensor(image, dtype=torch.float32)
         y_label = torch.tensor(self.annotations.iloc[index, 1], dtype=torch.float32)
 
