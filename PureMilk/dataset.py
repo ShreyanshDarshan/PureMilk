@@ -7,7 +7,7 @@ from skimage.transform import resize
 
 class AdulterantDataset(Dataset):
 
-    def __init__(self, dataset_path, transform=None):
+    def __init__(self, dataset_path: str, transform=None):
         self.root_dir = dataset_path
 
         csv_file_path = os.path.join(self.root_dir, "data.csv")
